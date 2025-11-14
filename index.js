@@ -49,3 +49,7 @@ app.post('/alert/high', async (req, res) => {
 app.get('/', (req, res) => {
   res.send('Glucose Rate Limiter Running');
 });
+
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server running on port ${PORT}`);
+});
