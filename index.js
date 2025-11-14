@@ -46,4 +46,6 @@ app.post('/alert/high', async (req, res) => {
   }
 });
 
-app.get('/'
+app.get('/', (req, res) => {
+  res.send('Glucose Rate Limiter Running');
+});
