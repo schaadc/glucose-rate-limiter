@@ -40,10 +40,32 @@ app.post('/alert/high', async (req, res) => {
       lastHighAlert = now;
       console.log(`Alert sent: glucose ${glucoseValue}`);
       res.json({ success: true, glucoseValue });
+    } else {
+      console.log(`IFTTT error: ${response.status}`);
+      res.json({ success: false, error: 'IFTTT request failed' });
     }
   } catch (error) {
+    console.error('Error:', error);
     res.status(500).json({ error: error.message });
   }
+});
+
+// Test endpoint for GET requests
+app.get('/alert/high', (req, res) => {
+  const testValue = req.query.value || '185';
+  res.send(`
+    <html>
+      <body>
+        <h2>Test High Glucose Alert</h2>
+        <p>Click the button below to simulate a high glucose reading of ${testValue}</p>
+        <form action="/alert/high?value=${testValue}" method="POST">
+          <button type="submit" style="padding: 10px 20px; font-size: 16px;">
+            Send Test Alert (${testValue} mg/dl)
+          </button>
+        </form>
+      </body>
+    </html>
+  `);
 });
 
 app.get('/', (req, res) => {
@@ -53,3 +75,8 @@ app.get('/', (req, res) => {
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server running on port ${PORT}`);
 });
+```
+
+Replace everything in your index.js with this and commit. Once it deploys, you can test by visiting:
+```
+https://glucose-rate-limiter-production.up.railway.app/alert/high?value=200
