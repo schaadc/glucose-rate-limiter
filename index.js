@@ -15,15 +15,7 @@ app.post('/alert/high', async (req, res) => {
     const glucoseValue = req.query.value || req.query.sgv || req.body.value || 'unknown';
     const now = new Date();
     
-    if (lastHighAlert) {
-      const timeSinceLastAlert = now - lastHighAlert;
-      const oneHour = 60 * 60 * 1000;
-      
-      if (timeSinceLastAlert < oneHour) {
-        const minutesRemaining = Math.ceil((oneHour - timeSinceLastAlert) / 60000);
-        return res.json({ success: false, reason: 'rate_limited', minutesRemaining });
-      }
-    }
+
     
     const iftttUrl = `https://maker.ifttt.com/trigger/high_alert/with/key/${IFTTT_KEY}`;
     
