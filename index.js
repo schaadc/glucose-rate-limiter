@@ -75,8 +75,3 @@ app.get('/', (req, res) => {
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server running on port ${PORT}`);
 });
-```
-
-Replace everything in your index.js with this and commit. Once it deploys, you can test by visiting:
-```
-https://glucose-rate-limiter-production.up.railway.app/alert/high?value=200
